@@ -1,0 +1,10 @@
+ {
+  "extends": "airbnb",
+  "plugins": [
+    "import"
+  ],
+  "rules": {
+  },
+  "env": {
+  }
+}

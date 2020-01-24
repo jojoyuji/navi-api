@@ -1,7 +1,9 @@
 const mongoose = require('mongoose')
+const config = require('./config')
 
-const mongoUrl =
-`mongodb://localhost:27017/yukimikas`
+const mongoUrl = config.dbString ?
+  config.dbString :
+  `mongodb://localhost:27017/navi_dev`
 
 mongoose.connect(mongoUrl, {
   useNewUrlParser: true,
