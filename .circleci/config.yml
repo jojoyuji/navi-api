@@ -1,0 +1,11 @@
+version: 2
+jobs:
+  dredd:
+    docker:
+      - image: 'circleci/node:latest'
+      - image: mongo:3.4.4-jessie
+    steps:
+      - checkout
+      - run: npm install
+      - run: npm install dredd@12.2.0 --global
+      - run: dredd

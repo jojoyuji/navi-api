@@ -1,0 +1,23 @@
+## Users [/users]
+Generates a totp from email of a user
+
+### create [POST]
+Gets the totp token via email
+
++ Request (application/json; charset=utf-8)
+
+        {
+          "email": "user1@teste.com",
+          "name": "Usuário teste"
+        }
+
++ Response 200
+
+        {
+          "_id": "meu id",
+          "name": "blabla",
+          "email": "user1@teste.com",
+          "createdAt":  "blabla",
+          "updatedAt":  "blabla"
+        }
+
