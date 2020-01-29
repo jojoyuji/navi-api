@@ -18,10 +18,9 @@ const User = new mongoose.Schema(
 
 const UserModel = mongoose.model('User', User);
 // ENDMODEL
-//
 
 const ObjectId = mongoose.Types.ObjectId ;
-// .isValid('your id here');
+
 module.exports = function(app) {
   router.get('/users', function(req, res) {
     UserModel
@@ -40,7 +39,6 @@ module.exports = function(app) {
 
   router.get('/users/:id', function(req, res) {
     const { id } = req.params
-    console.log(ObjectId.isValid(id));
     if(!ObjectId.isValid(id)) {
       return res.send(null);
     }
@@ -85,8 +83,6 @@ module.exports = function(app) {
     .then(function(doc, error) {
       res.send(doc);
     });
-
-
   });
 
 

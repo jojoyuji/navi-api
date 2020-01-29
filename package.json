@@ -5,8 +5,8 @@
   "scripts": {
     "start": "node ./bin/www",
     "dev": "nodemon --inspect ./bin/www",
-    "test-endpoints": "hercule api-source.apib -o api.apib && dredd",
-    "test": "npm run test-endpoints"
+    "test-dredd": "hercule ./dredd/api-source.apib -o ./dredd/api.apib && dredd --config=dredd/dredd.yml",
+    "test": "npm run test-dredd"
   },
   "dependencies": {
     "body-parser": "^1.19.0",
