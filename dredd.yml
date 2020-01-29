@@ -1,6 +1,6 @@
+hookfiles: ./resources/*/blueprint-hooks.js
 color: true
 dry-run: null
-hookfiles: null
 language: nodejs
 require: null
 server: npm run dev

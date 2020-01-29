@@ -18,13 +18,15 @@ const User = new mongoose.Schema(
 
 const UserModel = mongoose.model('User', User);
 // ENDMODEL
+//
 
+const ObjectId = mongoose.Types.ObjectId ;
+// .isValid('your id here');
 module.exports = function(app) {
   router.get('/users', function(req, res) {
     UserModel
     .find()
     .then(function(doc, error) {
-      console.log(doc);
       res.send(doc);
     });
   });
@@ -38,19 +40,25 @@ module.exports = function(app) {
 
   router.get('/users/:id', function(req, res) {
     const { id } = req.params
+    console.log(ObjectId.isValid(id));
+    if(!ObjectId.isValid(id)) {
+      return res.send(null);
+    }
     UserModel
     .findOne({
       _id: id,
       deletedAt: { $exists: false }
     })
     .then(function(doc, error) {
-      console.log(doc);
       res.send(doc);
     });
   });
 
   router.put('/users/:id', function(req, res) {
     const { id } = req.params;
+    if(!ObjectId.isValid(id)) {
+      return res.send(null);
+    }
     const toUpdate = req.body;
     UserModel
     .findOneAndUpdate({
@@ -61,19 +69,20 @@ module.exports = function(app) {
     {new: true})
 
     .then(function(doc, error) {
-      console.log(doc);
       res.send(doc);
     });
   });
 
   router.delete('/users/:id', function(req, res) {
     const { id } = req.params;
+    if(!ObjectId.isValid(id)) {
+      return res.send(null);
+    }
     UserModel
     .findOneAndDelete({
       _id: id,
     })
     .then(function(doc, error) {
-      console.log(doc);
       res.send(doc);
     });
 
