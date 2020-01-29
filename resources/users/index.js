@@ -32,9 +32,7 @@ module.exports = function(app) {
   router.post('/users', function(req, res) {
     const { name, email } = req.body;
     const newUser = UserModel.create({name, email}).then(function(doc, error) {
-      console.log(doc);
-
-      res.send({});
+      res.send(doc);
     });
   });
 
