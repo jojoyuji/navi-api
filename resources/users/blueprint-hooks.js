@@ -1,5 +1,5 @@
 const hooks = require('hooks');
-const { replaceId } = require('../../dredd/utils.js')
+const { replaceId } = require('../../docs/utils.js')
 
 const shared = {};
 
