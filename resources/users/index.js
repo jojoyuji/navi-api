@@ -33,7 +33,8 @@ module.exports = function(app) {
     const { name, email } = req.body;
     const newUser = UserModel.create({name, email}).then(function(doc, error) {
       console.log(doc);
-      res.send(doc);
+
+      res.send({});
     });
   });
 
