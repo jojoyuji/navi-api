@@ -3,9 +3,16 @@ jobs:
   dredd:
     docker:
       - image: 'circleci/node:latest'
-      - image: mongo:3.4.4-jessie
+      - image: 'circleci/mongo:3.4'
     steps:
       - checkout
       - run: npm install
-      - run: npm install dredd@12.2.0 --global
-      - run: dredd
+      - save_cache: # special step to save the dependency cache
+          key: dependency-cache-{{ checksum "package-lock.json" }}
+          paths:
+            - ./node_modules
+      - run:
+          name: Wait for Mongo to start
+          # preinstalled in circleci/* docker image
+          command: dockerize -wait tcp://127.0.0.1:27017 -timeout 120s
+      - run: npm run test
