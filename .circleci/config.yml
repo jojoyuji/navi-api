@@ -1,6 +1,6 @@
 version: 2
 jobs:
-  dredd:
+  build:
     docker:
       - image: 'circleci/node:latest'
       - image: 'circleci/mongo:3.4'
