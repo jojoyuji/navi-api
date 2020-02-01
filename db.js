@@ -8,6 +8,7 @@ const mongoUrl = config.dbString ?
 mongoose.connect(mongoUrl, {
   useNewUrlParser: true,
   useUnifiedTopology: true,
+  useFindAndModify: false,
 })
 
 const db = mongoose.connection;

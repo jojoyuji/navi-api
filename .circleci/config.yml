@@ -1,0 +1,18 @@
+version: 2
+jobs:
+  build:
+    docker:
+      - image: 'circleci/node:latest'
+      - image: 'circleci/mongo:3.4'
+    steps:
+      - checkout
+      - run: npm install
+      - save_cache: # special step to save the dependency cache
+          key: dependency-cache-{{ checksum "package-lock.json" }}
+          paths:
+            - ./node_modules
+      - run:
+          name: Wait for Mongo to start
+          # preinstalled in circleci/* docker image
+          command: dockerize -wait tcp://127.0.0.1:27017 -timeout 120s
+      - run: npm test

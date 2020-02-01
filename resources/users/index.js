@@ -13,35 +13,78 @@ const User = new mongoose.Schema(
       type: String,
     },
   },
-  {
-    timestamps: true
-  }
+  {timestamps: true}
 );
+
 const UserModel = mongoose.model('User', User);
 // ENDMODEL
 
+const ObjectId = mongoose.Types.ObjectId ;
 
 module.exports = function(app) {
   router.get('/users', function(req, res) {
-    console.log('bateu em /users')
     UserModel
     .find()
     .then(function(doc, error) {
-      console.log(doc);
       res.send(doc);
     });
   });
 
-  // POST /users //cria um novo usuario
-  // PUT /users/id // atualiza o usuario
   router.post('/users', function(req, res) {
-    console.log(req);
     const { name, email } = req.body;
     const newUser = UserModel.create({name, email}).then(function(doc, error) {
-      console.log(doc);
       res.send(doc);
     });
   });
+
+  router.get('/users/:id', function(req, res) {
+    const { id } = req.params
+    if(!ObjectId.isValid(id)) {
+      return res.send(null);
+    }
+    UserModel
+    .findOne({
+      _id: id,
+      deletedAt: { $exists: false }
+    })
+    .then(function(doc, error) {
+      res.send(doc);
+    });
+  });
+
+  router.put('/users/:id', function(req, res) {
+    const { id } = req.params;
+    if(!ObjectId.isValid(id)) {
+      return res.send(null);
+    }
+    const toUpdate = req.body;
+    UserModel
+    .findOneAndUpdate({
+      _id: id,
+      deletedAt: { $exists: false }
+    },
+    toUpdate,
+    {new: true})
+
+    .then(function(doc, error) {
+      res.send(doc);
+    });
+  });
+
+  router.delete('/users/:id', function(req, res) {
+    const { id } = req.params;
+    if(!ObjectId.isValid(id)) {
+      return res.send(null);
+    }
+    UserModel
+    .findOneAndDelete({
+      _id: id,
+    })
+    .then(function(doc, error) {
+      res.send(doc);
+    });
+  });
+
 
   app.use(router);
 };
