@@ -29,6 +29,7 @@ app.use('/', indexRouter);
 
 require('./resources/users')(app)
 
+require('./resources/courses')(app)
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
